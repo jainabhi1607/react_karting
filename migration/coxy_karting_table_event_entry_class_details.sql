@@ -1,0 +1,91 @@
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `event_entry_class_details`
+--
+
+CREATE TABLE `event_entry_class_details` (
+  `id` bigint(30) NOT NULL,
+  `event_entry_id` bigint(30) DEFAULT NULL,
+  `driver_type` int(2) DEFAULT NULL COMMENT '1= Main Driver, 2= Additional Driver',
+  `price` float DEFAULT NULL,
+  `event_class_id` int(11) DEFAULT NULL,
+  `class_name` varchar(255) DEFAULT NULL,
+  `class_management_id` int(11) DEFAULT NULL,
+  `kart_number` varchar(255) DEFAULT NULL,
+  `transponder_number` varchar(255) DEFAULT NULL,
+  `engine_type` varchar(255) DEFAULT NULL,
+  `kart_type` varchar(255) DEFAULT NULL,
+  `engine_number` text,
+  `chassis_number` varchar(255) DEFAULT NULL,
+  `sponsers` varchar(255) DEFAULT NULL,
+  `event_team_id` int(11) DEFAULT NULL,
+  `stripe_refund_id` varchar(255) DEFAULT NULL,
+  `cancellation_reason` longtext,
+  `stripe_refund_date_time` datetime DEFAULT NULL,
+  `status` int(2) DEFAULT NULL COMMENT '1= Payment Online 2= Payment on the Day 4= Fully Cancelled '
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `event_entry_class_details`
+--
+
+INSERT INTO `event_entry_class_details` (`id`, `event_entry_id`, `driver_type`, `price`, `event_class_id`, `class_name`, `class_management_id`, `kart_number`, `transponder_number`, `engine_type`, `kart_type`, `engine_number`, `chassis_number`, `sponsers`, `event_team_id`, `stripe_refund_id`, `cancellation_reason`, `stripe_refund_date_time`, `status`) VALUES
+(1, 1, 1, 5, 1, 'RKA F100 Heavy', 9, '5', '85', '1', 'Elev', 'ENG4556', 'CHA745986', 'No', NULL, NULL, NULL, NULL, 1),
+(2, 2, 1, 10, 6, 'Speedway 4 Stroke Super Heavy', 14, '8', '9', '1', 'Tier', NULL, NULL, 'Yes', NULL, NULL, NULL, NULL, 1),
+(3, 3, 1, 5, 1, 'RKA F100 Heavy', 9, '6', '4', '1', 'YHTR', 'ENG45632121', 'CHAS789456874', 'Yep', NULL, NULL, NULL, NULL, 1),
+(4, 4, 1, 5, 4, 'RKA F100 Heavy', 9, '4', '5', '1', 'HGTY', NULL, NULL, '1', NULL, NULL, NULL, NULL, 1),
+(5, 5, 1, 5, 1, 'RKA F100 Heavy', 9, '78', '7', '43', 'Ktre', 'ENG56565', 'CHAS7676876', 'no', NULL, NULL, NULL, NULL, 1),
+(6, 6, 1, 10, 3, 'Vintage ERA 5: 1992 – 2000', 1, '45', '7', '43', 'Test', 'ENG65454', 'CHAS23323424', 'Yep', NULL, NULL, NULL, NULL, 1),
+(7, 7, 1, 10, 3, 'Vintage ERA 5: 1992 – 2000', 1, '75', '32', '43', 'TERA', 'ENG5665', 'CLAS676798', 'No', NULL, NULL, NULL, NULL, 1),
+(8, 8, 1, 5, 4, 'RKA F100 Heavy', 9, '45465', '5456', '43', '4545', NULL, NULL, '4564564', NULL, NULL, NULL, NULL, 1),
+(9, 9, 1, 7, 17, 'Senior Heavy', 79, '4', '9', '37', '4', NULL, NULL, '1', NULL, NULL, NULL, NULL, 1),
+(10, 10, 1, 5, 21, 'Senior Mid', 182, '6546', '6576', '10', '67867', NULL, NULL, '7867j', NULL, NULL, NULL, NULL, 1),
+(11, 11, 1, 8, 30, 'Senior Mid', 182, '54', '546', '10', '68768', NULL, NULL, '678', NULL, NULL, NULL, NULL, 1),
+(12, 12, 1, 7, 23, '4SS Senior Heavy', 51, '456', '874', '42', '121', NULL, NULL, '321', NULL, NULL, NULL, NULL, 1),
+(13, 13, 1, 2, 24, '4SS Senior Light', 53, '4654', '654', '14', '54', NULL, NULL, '654', NULL, NULL, NULL, NULL, 1),
+(14, 14, 1, 6, 26, 'Senior Light', 80, '4654', '4', '6', '54', NULL, NULL, '5456', NULL, NULL, NULL, NULL, 1),
+(15, 15, 1, 6, 26, 'Senior Light', 80, '5', '4', '10', '56', NULL, NULL, '3', NULL, NULL, NULL, NULL, 1),
+(16, 16, 1, 8, 30, 'Senior Mid', 182, '4', '654', '37', '65', NULL, NULL, '454', NULL, NULL, NULL, NULL, 1),
+(17, 17, 1, 5, 21, 'Senior Mid', 182, '5', '6', '10', '5', NULL, NULL, '8', NULL, NULL, NULL, NULL, 1),
+(18, 18, 2, 50, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(19, 19, 1, 5, 21, 'Senior Mid', 182, '11', '22', '10', '33', NULL, NULL, '44', NULL, NULL, NULL, NULL, 1),
+(20, 20, 1, 7, 17, 'Senior Heavy', 79, '11', '22', '6', '28', NULL, NULL, '55', NULL, NULL, NULL, NULL, 1),
+(21, 21, 1, 2, 24, '4SS Senior Light', 53, '4654', '654', '14', '54', NULL, NULL, '654', NULL, NULL, NULL, NULL, 1),
+(22, 22, 1, 2, 2, 'RKA Pro Clubman Super Heavy', 11, '9', '66', '7', '45', '45', '121', '454', NULL, NULL, NULL, NULL, 1),
+(23, 23, 1, 8, 30, 'Senior Mid', 182, '78', '454', '10', '65465', NULL, NULL, '465', NULL, NULL, NULL, NULL, 1),
+(24, 24, 1, 2, 2, 'RKA Pro Clubman Super Heavy', 11, '454', '54', '7', '654', '2123121321', '54654', '567', NULL, NULL, NULL, NULL, 1),
+(25, 25, 1, 8, 30, 'Senior Mid', 182, '8521', '44564', '10', '654', NULL, NULL, '654', NULL, NULL, NULL, NULL, 1),
+(26, 26, 1, 2, 24, '4SS Senior Light', 53, '56', '6546', '14', '54', NULL, NULL, '56', NULL, NULL, NULL, NULL, 1),
+(27, 27, 1, 6, 41, 'Kart Start Light', 199, '5', '4', '1', '98', NULL, NULL, '45', NULL, NULL, NULL, NULL, 1),
+(28, 28, 1, 4, 44, 'Kart Start Junior', 200, '77', '56', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(29, 29, 1, 6, 41, 'Kart Start Light', 199, '6', '9', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(30, 30, 1, 4, 44, 'Kart Start Junior', 200, '8', '7', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(31, 31, 1, 10, 43, 'Kart Start Junior', 200, '85', '74', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(32, 32, 1, 4, 44, 'Kart Start Junior', 200, '77', '56', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(33, 33, 1, 9, 34, 'Senior Light', 80, '555', '2', '10', '5', '654', '454', 'd', NULL, NULL, NULL, NULL, 1),
+(34, 34, 1, 7, 23, '4SS Senior Heavy', 51, '6666', '56786', '14', '121', NULL, NULL, '321', NULL, NULL, NULL, NULL, 1),
+(35, 35, 1, 5, 37, 'Rotax DD2', 145, '560', '45', NULL, NULL, 'testing...', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(36, 36, 1, 2, 24, '4SS Senior Light', 53, '46E', '45', '13', '546', NULL, NULL, '5675', NULL, NULL, NULL, NULL, 1),
+(37, 36, 1, 7, 26, 'Senior Light', 80, '45F', '675', '10', '56756', NULL, NULL, 'y', NULL, NULL, NULL, NULL, 1),
+(38, 37, 1, 5, 46, '4SS Senior Heavy', 51, '5', '4', '14', '45', NULL, NULL, '5', 21, NULL, NULL, NULL, 1),
+(39, 38, 1, 5, 46, '4SS Senior Heavy', 51, '99', '5', '14', '1', NULL, NULL, 'no', NULL, NULL, NULL, NULL, 1),
+(40, 39, 1, 5, 50, '4SE Senior', 141, '45', '64', '43', '456', '4654', '54654', '45', 12, NULL, NULL, NULL, 1),
+(41, 36, 1, 5, 1, 'RKA F100 Heavy', 9, '4', '546', '39', '45', '456', '456', '879', NULL, NULL, NULL, NULL, 1),
+(42, 37, 1, 5, 4, 'RKA F100 Heavy', 9, '8', '5', '32', '5', NULL, NULL, '6', NULL, NULL, NULL, NULL, 1),
+(43, 38, 1, 4, 5, 'RKA Pro Clubman Super Heavy', 11, '5', '2', '7', '54', NULL, NULL, '4', NULL, NULL, NULL, NULL, 1),
+(44, 39, 1, 2, 2, 'RKA Pro Clubman Super Heavy', 11, '44', '5', '7', '45', '55', '56', '2', NULL, NULL, NULL, NULL, 1),
+(45, 40, 1, 2, 2, 'RKA Pro Clubman Super Heavy', 11, '4', '5', '7', '5', '57', '7', '8', NULL, NULL, NULL, NULL, 1),
+(46, 41, 1, 5, 4, 'RKA F100 Heavy', 9, '5', '4', '39', '8', NULL, NULL, '6', NULL, NULL, NULL, NULL, 1),
+(47, 42, 1, 5, 4, 'RKA F100 Heavy', 9, '5', '4', '32', '8', NULL, NULL, '6', NULL, NULL, NULL, NULL, 1),
+(48, 43, 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(49, 44, 1, 600, 59, '4SE Senior', 42, '5', '6', '43', '55', NULL, NULL, 'No', NULL, NULL, NULL, NULL, 1),
+(50, 45, 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(51, 46, 1, 9, 40, 'Kart Start Heavy', 197, '5.1', '66', NULL, NULL, 'No', NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(52, 47, 1, 600, 59, '4SE Senior', 42, '44', '55', '43', '66', NULL, NULL, '65', NULL, NULL, NULL, NULL, 1),
+(53, 48, 1, 600, 59, '4SE Senior', 42, '85', '75', '43', '5', NULL, NULL, '65', NULL, NULL, NULL, NULL, 1),
+(54, 49, 1, 600, 59, '4SE Senior', 42, '88', '74', '43', '455', NULL, NULL, '65', NULL, NULL, NULL, NULL, 1),
+(55, 50, 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(56, 51, 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(57, 52, 2, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);

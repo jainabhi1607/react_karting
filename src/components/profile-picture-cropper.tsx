@@ -5,7 +5,6 @@ import Cropper, { Area } from "react-easy-crop";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
-import { ImageIcon, CheckCircle, XCircle } from "lucide-react";
 
 interface ProfilePictureCropperProps {
   onImageSave: (croppedImage: string) => void;
@@ -108,7 +107,7 @@ export default function ProfilePictureCropper({ onImageSave, savedImage }: Profi
   };
 
   return (
-    <div className="bg-[#4a6a8a]/40 rounded p-6 space-y-4">
+    <div className="bg-[#EEF9FF] rounded p-6 space-y-4">
       {/* Hidden File Input */}
       <input
         ref={fileInputRef}
@@ -119,16 +118,16 @@ export default function ProfilePictureCropper({ onImageSave, savedImage }: Profi
       />
 
       {/* Section Title */}
-      <h3 className="text-sm font-bold text-white uppercase tracking-wide">
-        PROFILE PICTURE <span className="text-red-400 font-normal">(required)</span>
+      <h3 className="text-sm font-bold text-[#0C0E3B] uppercase tracking-wide">
+        PROFILE PICTURE <span className="text-red-500 font-normal">(required)</span>
       </h3>
 
       {/* Instructions */}
       <div className="space-y-1">
-        <p className="text-sm text-white/80">
+        <p className="text-sm text-[#0C0E3B]/70">
           Please upload a close up headshot for your licence photo.
         </p>
-        <p className="text-sm text-white font-bold">
+        <p className="text-sm text-[#0C0E3B] font-bold">
           Click the link below to upload your profile picture. You can then use the slider below the image to
           zoom in or out. You can use your mouse to click and reposition the image.
         </p>
@@ -140,29 +139,19 @@ export default function ProfilePictureCropper({ onImageSave, savedImage }: Profi
         <button
           type="button"
           onClick={triggerFileUpload}
-          className="w-[180px] h-[220px] bg-gray-200 rounded overflow-hidden flex items-center justify-center border-2 border-white/20 hover:border-white/50 transition-colors flex-shrink-0"
+          className="w-[180px] h-[220px] bg-gray-200 rounded overflow-hidden flex items-center justify-center border-2 border-gray-300 hover:border-gray-400 transition-colors flex-shrink-0"
         >
           {savedImage ? (
             <img src={savedImage} alt="Profile" className="w-full h-full object-cover" />
           ) : (
-            <ImageIcon className="w-16 h-16 text-gray-400" />
+            <img src="/user-image.jpg" alt="Default profile" className="w-full h-full object-cover opacity-60" />
           )}
         </button>
 
         {/* Example Good/Bad Photos */}
         <div className="flex items-center gap-4 pt-8">
-          <div className="relative">
-            <div className="w-[100px] h-[110px] bg-gray-100 rounded border-[3px] border-green-500 overflow-hidden flex items-center justify-center">
-              <div className="text-xs text-gray-400 text-center p-1">Good example</div>
-            </div>
-            <CheckCircle className="absolute -bottom-2 -right-2 w-7 h-7 text-green-500 fill-green-500 stroke-white" />
-          </div>
-          <div className="relative">
-            <div className="w-[100px] h-[110px] bg-gray-100 rounded border-[3px] border-red-500 overflow-hidden flex items-center justify-center">
-              <div className="text-xs text-gray-400 text-center p-1">Bad example</div>
-            </div>
-            <XCircle className="absolute -bottom-2 -right-2 w-7 h-7 text-red-500 fill-red-500 stroke-white" />
-          </div>
+          <img src="/correct-licence-image.jpg" alt="Correct example" className="w-[143px] h-auto rounded" />
+          <img src="/wrong-licence-image.jpg" alt="Wrong example" className="w-[175px] h-auto rounded" />
         </div>
       </div>
 

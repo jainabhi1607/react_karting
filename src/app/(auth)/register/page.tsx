@@ -70,6 +70,12 @@ export default function RegisterPage() {
     state: "",
     country: "australia",
     mailingAddressSame: true,
+    mailingAddressLine1: "",
+    mailingAddressLine2: "",
+    mailingSuburb: "",
+    mailingPostcode: "",
+    mailingState: "",
+    mailingCountry: "australia",
     mobilePhone: "",
     homePhone: "",
     emergencyContactPerson: "",
@@ -234,8 +240,8 @@ export default function RegisterPage() {
           </div>
 
           {/* Password Hint */}
-          <div className="bg-[#4a6a8a]/40 rounded p-4">
-            <p className="text-sm text-[#7dd3fc]">
+          <div className="bg-white rounded p-4">
+            <p className="text-sm text-[#0C0E3B]/70">
               Please ensure your password contains at least 9 characters, including at least one number
               and one uppercase letter.
             </p>
@@ -270,10 +276,10 @@ export default function RegisterPage() {
           </div>
 
           {/* Family Link Notice */}
-          <div className="bg-[#4a6a8a]/40 rounded p-4">
-            <p className="text-sm text-white/80">
+          <div className="bg-white/90 rounded p-4">
+            <p className="text-sm text-[#0C0E3B]/70">
               To create account for a member under age of 18, a parent or guardian must first create an account, then use the{" "}
-              <span className="font-bold text-white">Family link</span> feature to add minors.
+              <span className="font-bold text-[#0C0E3B]">Family link</span> feature to add minors.
             </p>
           </div>
 
@@ -397,6 +403,102 @@ export default function RegisterPage() {
             </Label>
           </div>
         </section>
+
+        {/* ─── MAILING ADDRESS (shown when checkbox unchecked) ─── */}
+        {!formData.mailingAddressSame && (
+          <section className="space-y-4">
+            <h2 className="text-base font-bold text-white uppercase tracking-wide">
+              Mailing Address
+            </h2>
+
+            {/* Mailing Address Line 1 */}
+            <div className="space-y-1.5">
+              <Label className={labelClasses}>
+                Address Line 1 <RequiredTag />
+              </Label>
+              <Input
+                value={formData.mailingAddressLine1}
+                onChange={(e) => updateField("mailingAddressLine1", e.target.value)}
+                className={inputClasses}
+                required
+              />
+            </div>
+
+            {/* Mailing Address Line 2 */}
+            <div className="space-y-1.5">
+              <Label className={labelClasses}>Address Line 2</Label>
+              <Input
+                value={formData.mailingAddressLine2}
+                onChange={(e) => updateField("mailingAddressLine2", e.target.value)}
+                className={inputClasses}
+              />
+            </div>
+
+            <p className="text-sm text-white/60">
+              As this information is used for mail margin posted items, please ensure your address is entered with the correct casing below. eg 1 Main Street.
+            </p>
+
+            {/* Mailing Suburb */}
+            <div className="space-y-1.5">
+              <Label className={labelClasses}>
+                Suburb <RequiredTag />
+              </Label>
+              <Input
+                value={formData.mailingSuburb}
+                onChange={(e) => updateField("mailingSuburb", e.target.value)}
+                className={inputClasses}
+                required
+              />
+            </div>
+
+            {/* Mailing Postcode */}
+            <div className="space-y-1.5">
+              <Label className={labelClasses}>
+                Postcode <RequiredTag />
+              </Label>
+              <Input
+                value={formData.mailingPostcode}
+                onChange={(e) => updateField("mailingPostcode", e.target.value)}
+                className={inputClasses}
+                required
+              />
+            </div>
+
+            {/* Mailing State */}
+            <div className="space-y-1.5">
+              <Label className={labelClasses}>
+                State <RequiredTag />
+              </Label>
+              <Select value={formData.mailingState} onValueChange={(val) => updateField("mailingState", val)}>
+                <SelectTrigger className={selectTriggerClasses}>
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  {STATE_OPTIONS.map((s) => (
+                    <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Mailing Country */}
+            <div className="space-y-1.5">
+              <Label className={labelClasses}>
+                Country <RequiredTag />
+              </Label>
+              <Select value={formData.mailingCountry} onValueChange={(val) => updateField("mailingCountry", val)}>
+                <SelectTrigger className={selectTriggerClasses}>
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  {COUNTRY_OPTIONS.map((c) => (
+                    <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </section>
+        )}
 
         {/* ─── CONTACT DETAILS ─── */}
         <section className="space-y-4">
