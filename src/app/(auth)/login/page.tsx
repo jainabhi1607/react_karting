@@ -22,17 +22,17 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#f8f9fb] px-4">
+    <div className="flex min-h-screen items-center justify-center px-4" style={{ background: "linear-gradient(#0C0E3B, #209BD6)" }}>
       <div className="w-full max-w-[440px] rounded-2xl bg-white p-8 shadow-sm border border-gray-100">
         {/* Logo */}
         <div className="flex justify-center mb-6">
           <Image
             src="/logo.png"
             alt="Karting"
-            width={120}
-            height={40}
+            width={250}
+            height={80}
             priority
-            className="object-contain"
+            className="object-contain h-auto w-[250px]"
           />
         </div>
 
@@ -100,7 +100,7 @@ export default function LoginPage() {
                 id="remember"
                 checked={rememberMe}
                 onCheckedChange={(checked) => setRememberMe(checked as boolean)}
-                className="border-gray-300 data-[state=checked]:bg-[#0f3d3e] data-[state=checked]:border-[#0f3d3e]"
+                className="border-gray-300 data-[state=checked]:bg-[#209BD6] data-[state=checked]:border-[#209BD6]"
               />
               <Label
                 htmlFor="remember"
@@ -111,7 +111,7 @@ export default function LoginPage() {
             </div>
             <Link
               href="/forgot-password"
-              className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+              className="text-sm text-gray-600 hover:text-gray-900 transition-colors cursor-pointer"
             >
               Forgot password?
             </Link>
@@ -120,7 +120,7 @@ export default function LoginPage() {
           {/* Sign In Button */}
           <Button
             type="submit"
-            className="w-full h-11 rounded-lg bg-[#0f3d3e] hover:bg-[#0a2e2f] text-white font-medium text-sm transition-colors"
+            className="w-full h-11 rounded-lg bg-[#209BD6] hover:bg-[#1a86ba] text-white font-medium text-sm transition-colors"
           >
             Sign In
           </Button>
@@ -131,7 +131,7 @@ export default function LoginPage() {
           Are you a referrer?{" "}
           <Link
             href="/register"
-            className="font-semibold text-gray-900 hover:underline"
+            className="font-semibold text-gray-900 hover:underline cursor-pointer"
           >
             Register here
           </Link>
