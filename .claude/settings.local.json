@@ -10,7 +10,9 @@
       "Bash(cd \"H:/coxy/karting\" && npm install lucide-react mongoose 2>&1)",
       "Bash(cd \"H:/coxy/karting\" && npx next build 2>&1)",
       "Bash(cd \"H:/coxy/karting\" && npm run dev 2>&1)",
-      "Bash(cd \"H:/coxy/karting\" && git push origin main 2>&1)"
+      "Bash(cd \"H:/coxy/karting\" && git push origin main 2>&1)",
+      "Bash(cd \"H:/coxy/karting\" && npm install react-easy-crop 2>&1)",
+      "Bash(cd \"H:/coxy/karting\" && npx shadcn@latest add select radio-group dialog slider 2>&1)"
     ]
   }
 }
