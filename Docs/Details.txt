@@ -1,0 +1,4 @@
+nvKgudrq5vn87upK
+jainabhi1607_db_user
+
+mongodb+srv://jainabhi1607_db_user:nvKgudrq5vn87upK@karting.7v5jgip.mongodb.net/

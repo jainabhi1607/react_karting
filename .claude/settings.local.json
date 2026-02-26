@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"H:/coxy/karting\" && npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --no-turbopack 2>&1)",
+      "Bash(npx create-next-app@latest karting-new --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --no-turbopack)",
+      "Bash(cp:*)",
+      "Bash(cd:*)",
+      "Bash(cd \"H:/coxy/karting\" && npx shadcn@latest init -d 2>&1)",
+      "Bash(cd \"H:/coxy/karting\" && npx shadcn@latest add button input label checkbox card 2>&1)",
+      "Bash(cd \"H:/coxy/karting\" && npm install lucide-react mongoose 2>&1)",
+      "Bash(cd \"H:/coxy/karting\" && npx next build 2>&1)",
+      "Bash(cd \"H:/coxy/karting\" && npm run dev 2>&1)"
+    ]
+  }
+}
