@@ -128,23 +128,14 @@ export default function LoginPage() {
 
         {/* Register Link */}
         <p className="text-center text-sm text-gray-500 mt-5">
-          Are you a referrer?{" "}
           <Link
             href="/register"
             className="font-semibold text-gray-900 hover:underline cursor-pointer"
           >
-            Register here
+            Click here
           </Link>
+          {" "}to create your account with Karting NSW
         </p>
-
-        {/* Contact Us Button */}
-        <Button
-          variant="outline"
-          className="w-full h-11 rounded-lg border-gray-200 text-gray-700 font-medium text-sm mt-3 hover:bg-gray-50 transition-colors"
-          asChild
-        >
-          <Link href="/contact">Contact us</Link>
-        </Button>
       </div>
     </div>
   );
