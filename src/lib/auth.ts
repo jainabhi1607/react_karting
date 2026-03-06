@@ -1,13 +1,15 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 
-const secret = process.env.JWT_SECRET;
-if (!secret) {
-  throw new Error("JWT_SECRET environment variable is not set");
-}
-const JWT_SECRET = new TextEncoder().encode(secret);
-
 const COOKIE_NAME = "karting_session";
+
+function getJwtSecret() {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    throw new Error("JWT_SECRET environment variable is not set");
+  }
+  return new TextEncoder().encode(secret);
+}
 
 export async function createSession(userId: string, rememberMe: boolean) {
   const expiresIn = rememberMe ? "30d" : "1d";
@@ -17,7 +19,7 @@ export async function createSession(userId: string, rememberMe: boolean) {
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime(expiresIn)
     .setIssuedAt()
-    .sign(JWT_SECRET);
+    .sign(getJwtSecret());
 
   const cookieStore = await cookies();
   cookieStore.set(COOKIE_NAME, token, {
@@ -37,7 +39,7 @@ export async function getSession() {
   if (!token) return null;
 
   try {
-    const { payload } = await jwtVerify(token, JWT_SECRET);
+    const { payload } = await jwtVerify(token, getJwtSecret());
     return payload as { userId: string };
   } catch {
     return null;
