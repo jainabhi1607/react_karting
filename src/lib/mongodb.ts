@@ -30,6 +30,14 @@ async function dbConnect(): Promise<typeof mongoose> {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      // Vercel serverless: many short-lived lambda instances can open connections
+      // simultaneously. Cap each instance's pool to 5 to avoid exhausting the
+      // Atlas connection limit (M0 free = 500 total, M2/M5 shared = 500).
+      // A single serverless function rarely needs more than 1-2 concurrent sockets.
+      maxPoolSize: 5,
+      // Close idle connections after 30 s — reduces Atlas pressure during quiet periods.
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 30000,
     };
 
     cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {

@@ -154,4 +154,32 @@ const UserDetailSchema = new Schema<IUserDetail>(
   }
 );
 
+// ---------------------------------------------------------------------------
+// Indexes
+// ---------------------------------------------------------------------------
+
+// user_id is already indexed via `index: true` on the field definition above.
+// Add a unique constraint so each user can have only one detail record,
+// and to make the index enforce referential integrity at the DB level.
+// NOTE: if migrated data already has the index without unique, drop it in
+// Atlas first: db.user_details.dropIndex("user_id_1") then re-deploy.
+UserDetailSchema.index(
+  { user_id: 1 },
+  { unique: true, name: "idx_user_details_user_id" }
+);
+
+// status_verified is used in admin workflows to find unverified members.
+UserDetailSchema.index({ status_verified: 1 }, { name: "idx_user_details_status_verified" });
+
+// reset_token and activation_token are looked up individually during
+// password-reset and email-activation flows — sparse because most rows are null.
+UserDetailSchema.index(
+  { reset_token: 1 },
+  { sparse: true, name: "idx_user_details_reset_token" }
+);
+UserDetailSchema.index(
+  { activation_token: 1 },
+  { sparse: true, name: "idx_user_details_activation_token" }
+);
+
 export default mongoose.models.UserDetail || mongoose.model<IUserDetail>("UserDetail", UserDetailSchema);

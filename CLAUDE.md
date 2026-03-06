@@ -1,15 +1,16 @@
 # Karting - Project Guide
 
 ## Tech Stack
-Next.js 16 | React 19 | TypeScript | Tailwind CSS v4 | ShadCN/UI | MongoDB (Mongoose) | Lucide React
+Next.js 16 | React 19 | TypeScript | Tailwind CSS v4 | ShadCN/UI | MongoDB (Mongoose) | Lucide React | bcryptjs | jose (JWT) | Resend (email)
 
 ## Structure
 - `src/app/` — Web app (Next.js App Router)
 - `src/mobile/` — Mobile app (React Native - future)
 - `src/components/ui/` — Shared ShadCN components (button, input, label, checkbox, card, select, radio-group, dialog, slider)
 - `src/components/` — Custom components (profile-picture-cropper)
-- `src/models/` — MongoDB models (User, UserDetail)
-- `src/lib/` — Shared utilities (mongodb.ts, utils.ts)
+- `src/models/` — MongoDB models (User, UserDetail, UserLoginCode)
+- `src/lib/` — Shared utilities (mongodb.ts, utils.ts, auth.ts, email.ts)
+- `src/app/api/auth/` — Auth API routes (login, verify-otp, resend-otp, logout)
 - `src/hooks/` — Shared hooks
 - `src/types/` — Shared TypeScript types
 - `migration/` — PHP SQL migration files (reference for DB structure)
@@ -21,9 +22,10 @@ Next.js 16 | React 19 | TypeScript | Tailwind CSS v4 | ShadCN/UI | MongoDB (Mong
 - All links/buttons use `cursor-pointer` globally
 
 ## Database
-- MongoDB (Mongoose) — split into 2 tables matching PHP structure
+- MongoDB (Mongoose) — split into 3 collections
 - `users` (24 fields) — core auth & identity
 - `user_details` (60 fields) — extended profile, address, emergency, documents
+- `user_login_codes` — OTP codes for login (TTL auto-cleanup)
 - Linked via `user_details.user_id` → `users._id`
 
 ## Deployment
@@ -53,3 +55,15 @@ Vercel via GitHub (auto-deploy on push to `main`)
 - [x] Profile section bg `#EEF9FF` with dark text
 - [x] MongoDB models: User (24 fields) + UserDetail (60 fields) matching PHP SQL structure
 - [x] SQL migration files added for reference
+- [x] Login authentication — full email/password + OTP two-factor flow
+- [x] JWT session management (jose) with HTTP-only cookies
+- [x] Remember me: 30-day session (checked) vs 1-day session (unchecked)
+- [x] OTP system: 6-digit codes, 5-min expiry, stored in user_login_codes
+- [x] OTP email delivery via Resend (4 API keys, auto-fallback on rate limit)
+- [x] Login page: 2-step flow (credentials → OTP verification with paste support)
+- [x] Auto-redirect: logged-in users skip login page → dashboard
+- [x] Protected dashboard page with sign-out
+- [x] API routes: /api/auth/login, verify-otp, resend-otp, logout
+- [x] UserLoginCode model with compound index + TTL auto-delete
+- [x] Case-insensitive email lookup via collation (not regex)
+- [x] Query projection — only fetching needed fields (.select/.lean)
