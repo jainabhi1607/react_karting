@@ -1,14 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
 import UserLoginCode from "@/models/UserLoginCode";
 import { sendOTPEmail } from "@/lib/email";
 import { randomInt } from "crypto";
+import { decryptToken } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
   try {
-    const { userId } = await req.json();
+    const { token } = await req.json();
+
+    if (!token || typeof token !== "string") {
+      return NextResponse.json(
+        { error: "Invalid request" },
+        { status: 400 }
+      );
+    }
+
+    const userId = decryptToken(token);
 
     if (!userId || !mongoose.Types.ObjectId.isValid(userId)) {
       return NextResponse.json(
@@ -34,12 +45,29 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Preserve remember_me from the existing OTP before expiring it
+    // Find active, non-expired OTP and check resend limit
     const existingCode = await UserLoginCode.findOne(
-      { user_id: userId, status: 1 },
-      { remember_me: 1 }
+      { user_id: userId, status: 1, expiry_time: { $gt: new Date() } },
+      { remember_me: 1, resend_count: 1 }
     ).sort({ _id: -1 }).lean();
-    const rememberMe = existingCode?.remember_me ?? false;
+
+    if (!existingCode) {
+      return NextResponse.json(
+        { error: "No active login session. Please start over." },
+        { status: 400 }
+      );
+    }
+
+    const MAX_RESENDS = 3;
+    if ((existingCode.resend_count || 0) >= MAX_RESENDS) {
+      return NextResponse.json(
+        { error: "Too many resend attempts. Please start over." },
+        { status: 429 }
+      );
+    }
+
+    const rememberMe = existingCode.remember_me ?? false;
+    const resendCount = (existingCode.resend_count || 0) + 1;
 
     // Expire existing OTPs
     await UserLoginCode.updateMany(
@@ -48,17 +76,19 @@ export async function POST(req: NextRequest) {
     );
 
     // Generate cryptographically secure 6-digit OTP
-    const otp = randomInt(100000, 999999).toString();
+    const otp = randomInt(100000, 1000000).toString();
+    const otpHash = await bcrypt.hash(otp, 8);
 
     // Send email first — only persist OTP after confirmed delivery
     await sendOTPEmail(user.email || "", otp, user.name || "User");
 
     await UserLoginCode.create({
       user_id: userId,
-      otp,
+      otp: otpHash,
       expiry_time: new Date(Date.now() + 5 * 60 * 1000),
       status: 1,
       remember_me: rememberMe,
+      resend_count: resendCount,
     });
 
     return NextResponse.json({

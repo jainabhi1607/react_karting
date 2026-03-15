@@ -1,9 +1,15 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
+import dbConnect from "@/lib/mongodb";
+import User from "@/models/User";
 
 export default async function DashboardPage() {
   const session = await getSession();
   if (!session) redirect("/login");
+
+  await dbConnect();
+  const user = await User.findById(session.userId).select("status").lean();
+  if (!user || user.status !== 1) redirect("/login");
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4" style={{ background: "linear-gradient(#0C0E3B, #209BD6)" }}>

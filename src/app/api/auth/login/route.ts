@@ -5,6 +5,7 @@ import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
 import UserLoginCode from "@/models/UserLoginCode";
 import { sendOTPEmail } from "@/lib/email";
+import { encryptToken } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
   try {
@@ -53,7 +54,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Generate cryptographically secure 6-digit OTP
-    const otp = randomInt(100000, 999999).toString();
+    const otp = randomInt(100000, 1000000).toString();
+    const otpHash = await bcrypt.hash(otp, 8);
 
     // Expire any existing OTPs for this user
     await UserLoginCode.updateMany(
@@ -62,20 +64,20 @@ export async function POST(req: NextRequest) {
     );
 
     // Send email first — only persist OTP after confirmed delivery
-    await sendOTPEmail(email, otp, user.name || "User");
+    await sendOTPEmail(user.email || "", otp, user.name || "User");
 
     await UserLoginCode.create({
       user_id: user._id,
-      otp,
+      otp: otpHash,
       expiry_time: new Date(Date.now() + 5 * 60 * 1000),
       status: 1,
-      remember_me: rememberMe || false,
+      remember_me: rememberMe === true,
     });
 
     return NextResponse.json({
       success: true,
       message: "OTP sent to your email",
-      userId: user._id.toString(),
+      token: encryptToken(user._id.toString()),
     });
   } catch (error) {
     console.error("Login error:", error);

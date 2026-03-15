@@ -19,7 +19,7 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const [userId, setUserId] = useState("");
+  const [token, setToken] = useState("");
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -45,7 +45,7 @@ export default function LoginForm() {
         return;
       }
 
-      setUserId(data.userId);
+      setToken(data.token);
       setStep("otp");
     } catch {
       setError("Network error. Please try again.");
@@ -100,7 +100,7 @@ export default function LoginForm() {
       const res = await fetch("/api/auth/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, otp: otpValue }),
+        body: JSON.stringify({ token, otp: otpValue }),
       });
 
       const data = await res.json();
@@ -128,7 +128,7 @@ export default function LoginForm() {
       const res = await fetch("/api/auth/resend-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId }),
+        body: JSON.stringify({ token }),
       });
 
       const data = await res.json();
@@ -151,7 +151,7 @@ export default function LoginForm() {
     setStep("credentials");
     setOtp(["", "", "", "", "", ""]);
     setError("");
-    setUserId("");
+    setToken("");
   };
 
   return (

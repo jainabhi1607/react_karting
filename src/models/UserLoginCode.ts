@@ -7,6 +7,7 @@ export interface IUserLoginCode extends Document {
   status: number; // 1=Available, 2=Used, 3=Expired
   remember_me: boolean;
   attempts: number;
+  resend_count: number;
 }
 
 const UserLoginCodeSchema = new Schema<IUserLoginCode>(
@@ -19,6 +20,7 @@ const UserLoginCodeSchema = new Schema<IUserLoginCode>(
     status: { type: Number, default: 1 },
     remember_me: { type: Boolean, default: false },
     attempts: { type: Number, default: 0 },
+    resend_count: { type: Number, default: 0 },
   },
   {
     timestamps: false,
